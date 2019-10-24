@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+source "$HOME/.config/shell/aliases"
+source "$HOME/.config/shell/functions"
+source "$HOME/.config/shell/env"

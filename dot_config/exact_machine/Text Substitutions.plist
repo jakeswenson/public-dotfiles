@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>phrase</key>
+		<string>‽</string>
+		<key>shortcut</key>
+		<string>!?</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>‽</string>
+		<key>shortcut</key>
+		<string>?!</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>(╯°□°）╯︵ ┻━┻</string>
+		<key>shortcut</key>
+		<string>/angry</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>(´༎ຶД༎ຶ`)</string>
+		<key>shortcut</key>
+		<string>/cry</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>(╯°□°）╯︵ ┻━┻</string>
+		<key>shortcut</key>
+		<string>/flip</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>🤯🔫</string>
+		<key>shortcut</key>
+		<string>/fml</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>( ° ͜ʖ͡°)╭∩╮</string>
+		<key>shortcut</key>
+		<string>/fu</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>:fireball: :gdhotdog: :fireball:</string>
+		<key>shortcut</key>
+		<string>/gdhot</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>༼ つ ◕_◕ ༽つ</string>
+		<key>shortcut</key>
+		<string>/poo</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>🥴💩🥳</string>
+		<key>shortcut</key>
+		<string>/pooyay</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>( ཀ ʖ̯ ཀ)</string>
+		<key>shortcut</key>
+		<string>/sad</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>（╯°□°）╯︵( .o.)</string>
+		<key>shortcut</key>
+		<string>/toss</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>🤨</string>
+		<key>shortcut</key>
+		<string>/wat</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>(͡o‿O͡)</string>
+		<key>shortcut</key>
+		<string>/what</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>( ⚆ _ ⚆ )</string>
+		<key>shortcut</key>
+		<string>/wow</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>◉_◉</string>
+		<key>shortcut</key>
+		<string>/wow</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>¯\_ಠ_ಠ_/¯</string>
+		<key>shortcut</key>
+		<string>badshrug</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>by the way</string>
+		<key>shortcut</key>
+		<string>btw</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>Mai-Lan</string>
+		<key>shortcut</key>
+		<string>mailan</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>On my way!</string>
+		<key>shortcut</key>
+		<string>omw</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>¯\_(ツ)_/¯</string>
+		<key>shortcut</key>
+		<string>shrug</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>¯\(º_o)/¯</string>
+		<key>shortcut</key>
+		<string>watshrug</string>
+	</dict>
+</array>
+</plist>

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$H/bin"
+export EDITOR="editor-cmd"
+export MENU='sk'
+export CLICOLOR=1
+# export LSCOLORS=gxfxcxdxbxegedabagacad
+
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob
+
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell
+
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+source "$HOME/.cargo/env"
+
+# Added for Krypton
+export GPG_TTY=$(tty)
+
+eval "$(jenv init -)"
+eval $(thefuck --alias)

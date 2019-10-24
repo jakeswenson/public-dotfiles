@@ -1,0 +1,9 @@
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  ForwardAgent yes
+  IdentityFile ~/.config/ssh/keys/jake_ssh
+
+Host usg
+  HostName 10.0.0.1
+  User admin

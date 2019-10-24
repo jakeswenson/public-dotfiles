@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+function mk() {
+  mkdir -p "$@" && cd "$@"
+}
+# Open man page as PDF
+function manpdf() {
+ man -t "${1}" | open -f -a /Applications/Preview.app/
+}
+
+{{- if .is_work }}
+
+unalias g
+function g {
+  if [ -x ./gradlew ]; then
+    ./gradlew "$@"
+  else
+    gradle "$@"
+  fi
+}
+
+{{- end }}

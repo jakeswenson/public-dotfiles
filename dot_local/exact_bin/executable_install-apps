@@ -1,0 +1,181 @@
+#!/usr/bin/env bash
+BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+function not_exists() {
+    test ! -x `command -v "$1"`
+}
+
+function step() {
+  local banner='=============================='
+  local banner_len=${#banner}
+  local text="$1"
+  local text_len=${#text}
+  local padding="$(printf '%0.1s' ' '{1..500})"
+  printf '\n%s\n' "$banner"
+  printf '%*.*s%s%*.*s\n' \
+    0 "$(((banner_len-text_len)/2))" "$padding" \
+    "$text" \
+    0 "$(((banner_len-text_len)/2))" "$padding"
+  printf '%s\n' "$banner"
+}
+
+function _print_list() {
+  echo "$1" | xargs -n 1 echo '   '
+}
+
+function _for_list() {
+  local list="$1"
+  shift
+  echo "$list" | xargs "$@"
+}
+
+function _for_each() {
+  local list="$1"
+  shift
+  echo "$list" | xargs -n 1 "$@"
+}
+
+step 'INSTALLING BREW'
+
+if not_exists brew; then
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+else echo "brew is already installed"; fi
+
+BREW_DIR="$HOME/.config/machine/brew"
+
+function brew_need_to_tap() {
+  local file="$1"
+  comm -13 <(brew tap | sort) <(cat "$file" | grep -vE '^\s*#' | sort)
+}
+
+taps_to_tap=`brew_need_to_tap "$BREW_DIR/taps"`
+if [ -n "$taps_to_tap" ]; then
+  echo "Taps to tap:"
+  _print_list "$taps_to_tap"
+  _for_each "$taps_to_tap" brew tap
+else
+  echo "Taps already configured"
+fi
+
+function brew_need_to_install() {
+  local file="$1"
+  comm -13 <(brew list -1 | sort) <(cat "$file" | grep -vE '^\s*#' | sort)
+}
+
+packages=`brew_need_to_install "$BREW_DIR/packages"`
+if [ -n "$packages" ]; then
+  echo "Installing:"
+  _print_list "$packages"
+  _for_list "$packages" brew install
+else
+  echo "all brew packages installed"
+fi
+
+function brew_cask_need_to_install() {
+  local file="$1"
+  comm -13 <(brew cask list -1 | sort) <(cat "$file" | grep -vE '^\s*#' | sort)
+}
+
+casks=`brew_cask_need_to_install "$BREW_DIR/cask-packages"`
+if [ -n "$casks" ]; then
+  echo "Installing casks:"
+  _print_list "$casks"
+  _for_list "$casks" brew cask install
+else
+  echo "all casks installed"
+fi
+
+function install_mac_apps() {
+  step 'SYNCING MAC APPS'
+
+  if not_exists mas; then brew install mas; fi
+
+  MAS_DIR="$HOME/.config/machine/mas"
+
+  function mas_to_install() {
+    local file="$1"
+    local target_list=`cat "$file" | grep -vE '^\s*#' | cut -f 2 -d ':' | sort -n`
+    local installed=`mas list | cut -d ' ' -f 1 | sort -n`
+
+    comm -13 <(echo "$installed") <(echo "$target_list")
+  }
+
+  apps=`mas_to_install "$MAS_DIR/apps"`
+  if [ -n "$apps" ]; then
+    echo "Installing mac apps:"
+    _print_list "$apps"
+    _for_list "$apps" mas install
+  else
+    echo "all apps installed"
+  fi
+
+  function mas_to_uninstall() {
+    local file="$1"
+    local target_list=`cat "$file" | grep -vE '^\s*#' | cut -f 2 -d ':' | sort -n`
+    local installed=`mas list | cut -d ' ' -f 1 | sort -n`
+
+    comm -23 <(echo "$installed") <(echo "$target_list")
+  }
+
+  uninstall_apps=`mas_to_uninstall "$MAS_DIR/apps"`
+  if [ -n "$uninstall_apps" ]; then
+    echo "Uninstalling mac apps:"
+    _print_list "$uninstall_apps"
+    _for_each "$uninstall_apps" sudo mas uninstall
+  else
+    echo "all other apps uninstalled"
+  fi
+}
+
+if [ -n "$SYNC_MAC_APPS" ]; then install_mac_apps; fi
+
+step 'INSTALLING VSCODE EXTENSIONS'
+if not_exists code; then brew cask install visual-studio-code; fi
+
+VSCODE_DIR="$HOME/.config/machine/vscode"
+
+function code_extensions_to_install() {
+  local file="$1"
+  local target_list=`sort "$file"`
+  local installed=`code --list-extensions | sort`
+
+  comm -13 <(echo "$installed") <(echo "$target_list")
+}
+
+extensions=`code_extensions_to_install "$VSCODE_DIR/extensions"`
+if [ -n "$extensions" ]; then
+  echo "Installing vs-code extensions:"
+  _print_list "$extensions"
+  _for_each "$extensions" code --install-extension
+else
+  echo "all vs-code extensions installed"
+fi
+
+step 'INSTALLING RUST'
+if not_exists rustup; then
+  rustup-init # installed from brew
+else echo "Rust is already installed"; fi
+
+step 'INSTALLING CARGO APPS'
+if not_exists code; then brew cask install visual-studio-code; fi
+
+CARGO_APPS="$HOME/.config/machine/cargo/apps"
+
+function cargo_apps_to_install() {
+  local file="$1"
+  local target_list=`sort "$file"`
+  local installed=`cargo install --list | cut -f 1 -d ' ' | grep -E '\w+' | sort`
+
+  comm -13 <(echo "$installed") <(echo "$target_list")
+}
+
+cargo_apps=`cargo_apps_to_install "$CARGO_APPS"`
+if [ -n "$cargo_apps" ]; then
+  echo "Installing cargo apps:"
+  _print_list "$cargo_apps"
+  _for_each "$cargo_apps" cargo install --force
+else
+  echo "all cargo apps installed"
+fi
+
+step 'APPS INSTALL COMPLETE'

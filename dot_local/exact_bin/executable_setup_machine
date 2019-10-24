@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+function not_exists() {
+    test ! -x `command -v "$1"`
+}
+
+function step() {
+  local banner='=============================='
+  local banner_len=${#banner}
+  local text="$1"
+  local text_len=${#text}
+  local padding="$(printf '%0.1s' ' '{1..500})"
+  printf '\n%s\n' "$banner"
+  printf '%*.*s%s%*.*s\n' \
+    0 "$(((banner_len-text_len)/2))" "$padding" \
+    "$text" \
+    0 "$(((banner_len-text_len)/2))" "$padding"
+  printf '%s\n' "$banner"
+}
+
+step "Setup Key Repeat"
+
+defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
+defaults write -g InitialKeyRepeat -int 15 # normal minimum is 15 (225 ms)
+defaults write -g ApplePressAndHoldEnabled -bool false
+
+# Stuff
+# defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool true

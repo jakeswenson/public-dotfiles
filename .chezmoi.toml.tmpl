@@ -1,0 +1,7 @@
+[gpg]
+  recipient = "D412782C24BD04A706950AFE8016F0A0E34BFDA0"
+[data]
+    name = "Jake Swenson"
+    email = "jake@jakeswenson.com"
+    work_email = "jswenson@godaddy.com"
+    is_work = {{if eq .chezmoi.fullHostname "jakes-dev" }}true{{else}}false{{end}}
